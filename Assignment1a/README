@@ -1,0 +1,18 @@
+Distributed Programming II 
+==========================
+
+Assignment n. 1 - Part a
+------------------------
+
+This archive includes:
+
+- README            This file
+
+- Assignment1a.pdf  The text of Assignment 1 - Part a
+
+- intro.pdf         An introduction to the topic of the assignments
+
+- doc               A folder including the Javadoc documentation of
+                    the interfaces used for the assignment
+
+- xsd               The folder where you must put the xsd of your solution

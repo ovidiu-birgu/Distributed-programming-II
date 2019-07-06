@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="." default="build-service" name="RNS-SOL3">
+	<description>
+		Script for RNS Assignment 3
+		NOTE: this ant build file should not be run standalone, but from build.xml, by calling:
+				the targets build-service or build-client
+	</description>
+	
+	<!-- used for compilation of classes -->
+	<property name="path.sol3" value="it/polito/dp2/RNS/sol3" />
+	<property name="path.service" value="${path.sol3}/service" />
+	<property name="path.admclient" value="${path.sol3}/admClient" />
+	<property name="path.vehclient" value="${path.sol3}/vehClient" />
+	
+	<!-- The location to be used for class files -->
+	<property name="build.dir" location="${basedir}/build" />
+	<!-- The location for source files -->
+	<property name="src.dir" location="${basedir}/src" />
+	<!-- The location for solutions -->
+	<property name="sol3.dir" value="${src.dir}/${path.sol3}" />
+	<!-- The location for solution of service -->
+	<property name="sol3.service.dir" value="${sol3.dir}/service" />
+	<!-- The location for solution of admClient -->
+	<property name="sol3.admclient.dir" value="${sol3.dir}/admClient" />
+	<!-- The location for solution of vehClient -->
+	<property name="sol3.vehclient.dir" value="${sol3.dir}/vehClient" />
+	<!-- The location for jar files -->
+	<property name="lib.dir" location="${basedir}/lib" />
+	<!-- The location for custom files -->
+	<property name="custom.dir" location="${basedir}/custom" />
+	<!-- The location for xsd files -->
+	<property name="xsd.dir" location="${basedir}/xsd" />		
+	<!-- location for generated artifacts -->
+	<property name="gen.dir" location="${basedir}/gen-src" />
+
+	<!-- packages for service and clients -->
+	<property name="sol3.package" value="it.polito.dp2.RNS.sol3" />	
+	<property name="service.package" value="${sol3.package}.service" />
+	<property name="admclient.package" value="${sol3.package}.admClient" />
+	<property name="vehclient.package" value="${sol3.package}.vehClient" />	
+	
+	<!-- used for WADL by vehClient and admClient -->
+	<property name="rns.wadl" value="${URL}/application.wadl" />	
+	<property name="rns.package.wadl.vehclient" value="${vehclient.package}.jaxb.rnssystem" />
+	<property name="rns.package.wadl.admclient" value="${admclient.package}.jaxb.rnssystem" />
+	
+	<!-- for service -->
+	<!-- define location of schema for rnsNeo4j -->	
+	<property name="schema.rnsneo4j.src" value="${xsd.dir}/rnsNeo4j.xsd" />
+	<!-- define package for rnsNeo4j schema -->
+	<property name="package.sol3.service.jaxb.rnsneo4j" value="${service.package}.jaxb.rnsneo4j" />
+	<!-- define location of schema for RnsSystem -->	
+	<property name="schema.rnssystem.name" value="RnsSystem.xsd" />
+	<property name="schema.rnssystem.src" value="${xsd.dir}/${schema.rnssystem.name}" />
+	<!-- define package for RnsSystem schema -->
+	<property name="package.sol3.service.jaxb.rnssystem" value="${service.package}.jaxb.rnssystem" />
+	<!-- documentation of service -->
+	<property name="doc.dir" value="${basedir}/doc" />
+	<!-- WebContent dir -->
+	<property name="webcontent.dir" value="${basedir}/WebContent" />
+	
+	<!-- The classpath to be used for running the tests -->
+	<path id="test.classpath">
+		<pathelement location="${build.dir}" />
+		<fileset dir="${lib.dir}">
+		    <include name="*.jar" />
+		</fileset>
+		<fileset dir="${ext.lib.dir}">
+		    <include name="*.jar" />
+			<exclude name="ant-*.jar"/>
+		</fileset>
+	</path>
+	
+	<!-- define wjc task (WADL to Java) -->
+	<!-- steps:
+		1) WADL to Java reads WADL from url
+		2) finds the link to the schema
+		3) follows the link downloads the schema
+		4) then uses the schema to generate classes using jaxb
+		5) the generated classes include: stub(used for get/post/ecc operations), objectfactory,  rns value classes
+		note: instead of the stub I can use the method chaining(it is easier to understand)
+	-->
+	<taskdef name="wjc" classname="org.jvnet.ws.wadl2java.WJCTask">
+		<classpath>
+			<fileset dir="${ext.lib.dir}" includes="*.jar" />
+		</classpath>
+	</taskdef>	
+	
+	<!-- The target for building the service -->
+	<target name="build-service">
+		<mkdir dir="${gen.dir}" />
+		<echo message="Generating artifacts..." />		
+		<echo message="Compiling the schemas..." />
+		<!-- JAXB classes for rnsNeo4j SCHEMA -->
+		<exec executable="xjc" failonerror="true" >
+			<arg value="-d" />
+			<arg value="${gen.dir}" />
+			<arg value="-p" />
+			<arg value="${package.sol3.service.jaxb.rnsneo4j}" />
+			<arg value="${schema.rnsneo4j.src}" />
+		</exec>	
+		<!-- JAXB classes for rnsInfo SCHEMA -->
+		<exec executable="xjc" failonerror="true" >
+			<arg value="-d" />
+			<arg value="${gen.dir}" />
+			<arg value="-p" />
+			<arg value="${package.sol3.service.jaxb.rnssystem}" />
+			<arg value="${schema.rnssystem.src}" />
+		</exec>
+		<!-- Compile service classes -->
+		<echo>Building service...</echo>
+		<javac destdir="${build.dir}" debug="${debug}" debuglevel="${debuglevel}" source="${source}" target="${target}" includeantruntime="false">
+			<src path="${basedir}"/>
+			<include name="gen-src/${path.service}/**" />
+			<include name="src/${path.service}/**" />
+			<classpath>
+				<path refid="test.classpath" />
+			</classpath>
+		</javac>
+		<!-- Copying the documentation to WebContent -->
+		<copy todir="${webcontent.dir}/doc" overwrite="true" > 
+		    <fileset dir="${doc.dir}">
+		        <include name="**"/>
+		    </fileset>
+		</copy>
+		<!-- Copying the xsd schema to WebContent -->
+		<copy todir="${webcontent.dir}/WEB-INF/classes/xsd" overwrite="true" >  
+		    <fileset dir="${xsd.dir}">  
+		        <include name="${schema.rnssystem.name}"/>
+		    </fileset>
+		</copy>
+		<echo>Done.</echo>
+	</target>
+	
+	<!-- The target for building the clients vehicle and admin -->
+	<target name="build-client">
+		<mkdir dir="${gen.dir}" />
+		<!-- vehClient -->
+		<!-- define the rns artifacts generation target -->
+		<echo message="Generating artifacts vehClient..." />		
+		<echo message="Compiling the descriptions vehClient..." />
+		<wjc description="${rns.wadl}" package="${rns.package.wadl.vehclient}"
+		   autoSchemaPackage="false" target="${gen.dir}">
+			<customizations dir="${basedir}" includes="binding.xjc"/>
+			<produces dir="${gen.dir}/${path.vehclient}/jaxb/rnssystem" includes="*.java"/>
+			<depends dir="${basedir}" includes="build.xml"/>
+		</wjc>
+		<!-- Compile vehClient classes -->
+		<echo>Building vehClient...</echo>
+		<javac destdir="${build.dir}" debug="${debug}" debuglevel="${debuglevel}" source="${source}" target="${target}" includeantruntime="false">
+			<src path="${basedir}"/>
+			<include name="gen-src/${path.vehclient}/**" />
+			<include name="src/${path.vehclient}/**" />
+			<classpath>
+				<path refid="test.classpath" />
+			</classpath>
+		</javac>
+		<!-- admClient -->
+		<!-- define the rns artifacts generation target -->
+		<echo message="Generating artifacts admClient..." />
+		<echo message="Compiling the descriptions admClient..." />
+		<wjc description="${rns.wadl}" package="${rns.package.wadl.admclient}"
+		   autoSchemaPackage="false" target="${gen.dir}">
+			<customizations dir="${basedir}" includes="binding.xjc"/>
+			<produces dir="${gen.dir}/${path.admclient}/jaxb/rnssystem" includes="*.java"/>
+			<depends dir="${basedir}" includes="build.xml"/>
+		</wjc>
+		<!-- Compile admClient classes -->
+		<echo>Building admClient...</echo>
+		<javac destdir="${build.dir}" debug="${debug}" debuglevel="${debuglevel}" source="${source}" target="${target}" includeantruntime="false">
+			<src path="${basedir}"/>
+			<include name="gen-src/${path.admclient}/**" />
+			<include name="src/${path.admclient}/**" />
+			<classpath>
+				<path refid="test.classpath" />
+			</classpath>
+		</javac>
+		<echo>Done.</echo>
+	</target>
+	
+</project>

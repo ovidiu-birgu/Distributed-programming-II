@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="." default="generate-artifacts" name="RNS-SOL2">
+	<description>
+			Script for RNS Assignment 2 solution
+	</description>
+	
+	<property name="lab2.location" location="." />
+	<property name="gen.dir" location="${lab2.location}/gen-src" />	
+	
+	<!-- define location of SCHEMA for schema-based examples -->	
+	<property name="schema.src" value="${lab2.location}/custom/rnsNeo4j.xsd" />
+
+	<property name="package.sol2.jaxb" value="it.polito.dp2.RNS.sol2.jaxb" />
+	
+	<!-- define the rns artifacts generation target -->
+	<target name="generate-artifacts">
+		<echo message="Generating artifacts..." />		
+		<echo message="Compiling the schema..." />
+		<exec executable="xjc" failonerror="true" >
+			<arg value="-d" />
+			<arg value="${gen.dir}" />
+			<arg value="-p" />
+			<arg value="${package.sol2.jaxb}" />
+			<arg value="${schema.src}" />
+		</exec>		
+	</target>
+
+</project>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rns xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="rnsInfo.xsd">
+
+	<gate id="Gate1" capacity="2" type="INOUT">
+		<nextPlace>RoadSegment1</nextPlace>
+		<nextPlace>ParkingArea1</nextPlace>
+	</gate>	
+	
+	<gate id="Gate2" capacity="3" type="OUT"/>		
+			
+	<roadSegment id="RoadSegment1" capacity="3" name="RoadSegment1" roadName="Road1">
+		<nextPlace>Gate1</nextPlace>
+		<nextPlace>ParkingArea1</nextPlace>
+	</roadSegment>	
+	
+	<roadSegment id="RoadSegment2" capacity="1" name="RoadSegment2" roadName="Road1">
+		<nextPlace>Gate1</nextPlace>
+		<nextPlace>ParkingArea1</nextPlace>
+		<nextPlace>ParkingArea1</nextPlace>
+	</roadSegment>
+			
+	<parkingArea id="ParkingArea1" capacity="3">
+		<nextPlace>Gate1</nextPlace>
+		<nextPlace>RoadSegment1</nextPlace>
+		<service>WC</service>
+	</parkingArea>	
+	
+	<parkingArea id="ParkingArea2" capacity="2">
+		<nextPlace>RoadSegment2</nextPlace>
+		<service>Shop</service>
+		<service>WC</service>
+	</parkingArea>		
+		
+	<vehicle id="XY123QQ" type="CAR" entryTime="2018-10-13T15:30:20" state="PARKED" origin="Gate1" destination="ParkingArea1" position="Gate1"/>
+	
+	<vehicle id="ZY456AA" type="TRUCK" entryTime="2018-11-13T15:30:20" state="PARKED" origin="Gate1" destination="ParkingArea1" position="Gate1"/>
+
+	<road name="Road1"/>
+		
+	<road name="Road2"/>
+
+	<service name="WC"/>
+
+	<service name="Shop"/>
+
+	<service name="Bar"/>
+	
+</rns>	

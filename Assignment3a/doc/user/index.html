@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table{
+	width: 100%;
+}
+table, th, td {
+	border: 1px solid white;
+	border-collapse: collapse;
+}
+th, td {
+	padding: 8px;
+	text-align: left;
+}
+table th {
+	background-color: #4f81bd;
+	color: white;
+}
+table tr#type1 {
+	background-color: #d0d8e8;
+}
+table tr#type2 {
+	background-color: #e9edf4;
+}
+
+textarea {
+	border:none;
+	padding: 8px;
+	background-color: #e9edf4;
+}
+</style>
+</head>
+<body>
+
+<h2>DP2-RNS REST API User Documentation</h2>
+<br/>
+<br/>
+<p><b>Resources</b></p>
+	<table>
+		<tr>
+			<th colspan="4">Resource</th>
+			<th>Relative URL</th>
+			<th>XML Representation</th>
+			<th>Meaning</th>
+		</tr>
+		<tr id="type1">
+			<td>webrns</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>/</td>
+			<td>webrns</td>
+			<td>The main resource</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td>places</td>
+			<td></td>
+			<td></td>
+			<td>/places</td>
+			<td>places</td>
+			<td>The places</td>
+		</tr>
+		<tr id="type1">
+			<td></td>
+			<td></td>
+			<td>{id}</td>
+			<td></td>
+			<td>/places/{id}</td>
+			<td>webplace</td>
+			<td>The place uniquely identified by "id"</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>vehicles</td>
+			<td>/places/{id}/vehicles</td>
+			<td>vehicles</td>
+			<td>The vehicles that are in the place uniquely identified by "id"</td>
+		</tr>
+		<tr id="type1">
+			<td></td>
+			<td>connections</td>
+			<td></td>
+			<td></td>
+			<td>/connections</td>
+			<td>connections</td>
+			<td>The connections</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td>vehicles</td>
+			<td></td>
+			<td></td>
+			<td>/vehicles</td>
+			<td>vehicles</td>
+			<td>The vehicles</td>
+		</tr>
+		<tr id="type1">
+			<td></td>
+			<td></td>
+			<td>{id}</td>
+			<td></td>
+			<td>/vehicles/{id}</td>
+			<td>vehicle</td>
+			<td>The vehicle uniquely identified by "id"</td>
+		</tr>
+	</table>
+
+	<br/>
+<p><b>Operations</b></p>
+	<table>
+		<tr>
+			<th>Resource URL</th>
+			<th>Method</th>
+			<th>Query params</th>
+			<th>Request Body</th>
+			<th colspan="2">Status</th>
+			<th>Responese Body</th>
+			<th>Description</th>
+		</tr>
+		<tr id="type1">
+			<td>/</td>
+			<td>GET</td>
+			<td></td>
+			<td></td>
+			<td>200</td>
+			<td>OK</td>
+			<td><a href="#idwebrns">webrns</a></td>
+			<td>this method returns the main resource of the rns system</td>
+		</tr>
+		<tr id="type2">
+			<td>/places</td>
+			<td>GET</td>
+			<td>type: string [gate | parkingarea | roadsegment]<br>page: integer</td>
+			<td></td>
+			<td>200</td>
+			<td>OK</td>
+			<td><a href="#idplaces">places</a></td>
+			<td>this method returns all found places</td>
+		</tr>
+		<tr id="type1">
+			<td>/places/{id}</td>
+			<td>GET</td>
+			<td></td>
+			<td></td>
+			<td>200</td>
+			<td>OK</td>
+			<td><a href="#idwebplace">webplace</a></td>
+			<td>this method returns the place identified by {id}</td>
+		</tr>
+		<tr id="type1">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>404</td>
+			<td>Not Found</td>
+			<td></td>
+			<td>the place identified by {id} does not exist</td>
+		</tr>
+		<tr id="type2">
+			<td>/places/{id}/vehicles</td>
+			<td>GET</td>
+			<td>page: integer</td>
+			<td></td>
+			<td>200</td>
+			<td>OK</td>
+			<td><a href="#idvehicles">vehicles</a></td>
+			<td>this method returns the vehicles that are in place identified by {id}</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>404</td>
+			<td>Not Found</td>
+			<td></td>
+			<td>the place identified by {id} does not exist</td>
+		</tr>
+		<tr id="type1">
+			<td>/connections</td>
+			<td>GET</td>
+			<td>page: integer</td>
+			<td></td>
+			<td>200</td>
+			<td>OK</td>
+			<td><a href="#idconnections">connections</a></td>
+			<td>this method returns all connections between places</td>
+		</tr>
+		<tr id="type2">
+			<td>/vehicles</td>
+			<td>GET</td>
+			<td>page: integer</td>
+			<td></td>
+			<td>200</td>
+			<td>OK</td>
+			<td><a href="#idvehicles">vehicles</a></td>
+			<td>this method returns all found vehicles</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td>POST</td>
+			<td></td>
+			<td><a href="#idvehicletrack">vehicleTrack</a></td>
+			<td>200</td>
+			<td>OK</td>
+			<td><a href="#idvehiclepath">vehiclePath</a></td>
+			<td>this method adds a vehicle to the system, then returns the path assigned to the vehicle</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>400</td>
+			<td>Bad Request</td>
+			<td></td>
+			<td>the request body is wrong or contains invalid data (e.g inGate is not the id of an IN or INOUT gate)</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>403</td>
+			<td>Forbidden</td>
+			<td></td>
+			<td>permission to enter is not granted(e.g place capacity exceeded)</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>404</td>
+			<td>Not Found</td>
+			<td></td>
+			<td>the source or the destination is not a known place</td>
+		</tr>				
+		<tr id="type1">
+			<td>/vehicles/{id}</td>
+			<td>GET</td>
+			<td></td>
+			<td></td>
+			<td>200</td>
+			<td>OK</td>
+			<td><a href="#idwebvehicle">webvehicle</a></td>
+			<td>this method returns the vehicle identified by {id}</td>
+		</tr>
+		<tr id="type1">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>404</td>
+			<td>Not Found</td>
+			<td></td>
+			<td>the vehicle identified by {id} does not exist</td>
+		</tr>
+		<tr id="type2">
+			<td>/vehicles/{id}</td>
+			<td>DELETE</td>
+			<td></td>
+			<td></td>
+			<td>204</td>
+			<td>No Content</td>
+			<td></td>
+			<td>this method removes from the system the vehicle identified by {id}</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>404</td>
+			<td>Not Found</td>
+			<td></td>
+			<td>the vehicle identified by {id} does not exist</td>
+		</tr>		
+		<tr id="type1">
+			<td>/vehicles/{id}/exit</td>
+			<td>PUT</td>
+			<td></td>
+			<td><a href="#idvehicleposition">vehiclePosition</a></td>
+			<td>204</td>
+			<td>No Content</td>
+			<td></td>
+			<td>this method untracks the vehicle identified by {id} that is in place vehiclePositione</td>
+		</tr>
+		<tr id="type1">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>400</td>
+			<td>Bad Request</td>
+			<td></td>
+			<td>the request body is wrong or contains invalid data (e.g position is not an OUT/INOUT gate)</td>
+		</tr>		
+		<tr id="type1">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>404</td>
+			<td>Not Found</td>
+			<td></td>
+			<td>the vehicle identified by {id} does not exist or the vehicle position is not the id of a known place</td>
+		</tr>
+		<tr id="type2">
+			<td>/vehicles/{id}/move</td>
+			<td>PUT</td>
+			<td></td>
+			<td><a href="#idvehicleposition">vehiclePosition</a></td>
+			<td>200</td>
+			<td>OK</td>
+			<td><a href="#idvehiclepath">vehiclePath</a></td>
+			<td>this method changes the position of the vehicle identified by {id}, then returns the new path for the vehicle</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>400</td>
+			<td>Bad Request</td>
+			<td></td>
+			<td>the request body is wrong or contains invalid data (e.g vehicle position is not the id of a place reachable from the previous position of the vehicle)</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>403</td>
+			<td>Forbidden</td>
+			<td></td>
+			<td>permission to move is not granted(e.g place capacity exceeded)</td>
+		</tr>
+		<tr id="type2">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>404</td>
+			<td>Not Found</td>
+			<td></td>
+			<td>the vehicle identified by {id} does not exist or the vehicle position is not the id of a known place</td>
+		</tr>
+		<tr id="type1">
+			<td>/vehicles/{id}/state</td>
+			<td>PUT</td>
+			<td></td>
+			<td><a href="#idvehstate">vehState</a></td>
+			<td>204</td>
+			<td>No Content</td>
+			<td></td>
+			<td>this method changes the state of the vehicle identified by {id}</td>
+		</tr>
+		<tr id="type1">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>400</td>
+			<td>Bad Request</td>
+			<td></td>
+			<td>the request body is wrong or contains invalid data (e.g vehicle state is not PARKED/IN_TRANSIT)</td>
+		</tr>
+		<tr id="type1">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>404</td>
+			<td>Not Found</td>
+			<td></td>
+			<td>the vehicle identified by {id} does not exist</td>
+		</tr>
+	</table>
+
+<br>
+<p><b>XML/JSON Representation Examples</b></p>
+<ul>
+	<li><p id="idwebrns">webrns</p>
+		<textarea rows="10" cols="120">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webrns>
+    <self>http://localhost:8080/RnsSystem/rest/</self>
+    <places>http://localhost:8080/RnsSystem/rest/places</places>
+    <gates>http://localhost:8080/RnsSystem/rest/places?type=gate</gates>
+    <roadSegments>http://localhost:8080/RnsSystem/rest/places?type=roadsegment</roadSegments>
+    <parkingAreas>http://localhost:8080/RnsSystem/rest/places?type=parkingarea</parkingAreas>
+    <connections>http://localhost:8080/RnsSystem/rest/connections</connections>
+    <vehicles>http://localhost:8080/RnsSystem/rest/vehicles</vehicles>
+</webrns>
+		</textarea>	
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+  "self": "http://localhost:8080/RnsSystem/rest",
+  "places": "http://localhost:8080/RnsSystem/rest/places",
+  "gates": "http://localhost:8080/RnsSystem/rest/places?type=gate",
+  "roadSegments": "http://localhost:8080/RnsSystem/rest/places?type=roadsegment",
+  "parkingAreas": "http://localhost:8080/RnsSystem/rest/places?type=parkingarea",
+  "connections": "http://localhost:8080/RnsSystem/rest/connections",
+  "vehicles": "http://localhost:8080/RnsSystem/rest/vehicles"
+}
+		</textarea>		
+	</li>
+	<li><p id="idplaces">places</p>
+		<textarea rows="10" cols="120">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<places>
+    <totalPages>0</totalPages>
+    <page>0</page>
+    <next>http://localhost:8080/RnsSystem/rest/places?page=1</next>
+    <webplace>
+        <self>http://localhost:8080/RnsSystem/rest/places/Gate2</self>
+        <gate type="INOUT" capacity="2" id="Gate2">
+            <nextPlace>SP0-S0</nextPlace>
+        </gate>
+        <vehicles>http://localhost:8080/RnsSystem/rest/places/Gate2/vehicles</vehicles>
+    </webplace>
+    <webplace>
+        <self>http://localhost:8080/RnsSystem/rest/places/SP0-S3</self>
+        <roadSegment name="S3" roadName="SP0" capacity="28" id="SP0-S3">
+            <nextPlace>Gate1</nextPlace>
+        </roadSegment>
+        <vehicles>http://localhost:8080/RnsSystem/rest/places/SP0-S3/vehicles</vehicles>
+    </webplace>
+    <webplace>
+        <self>http://localhost:8080/RnsSystem/rest/places/SP1-S3</self>
+        <roadSegment name="S3" roadName="SP1" capacity="13" id="SP1-S3">
+            <nextPlace>SP1-S4</nextPlace>
+        </roadSegment>
+        <vehicles>http://localhost:8080/RnsSystem/rest/places/SP1-S3/vehicles</vehicles>
+    </webplace>
+    <webplace>
+        <self>http://localhost:8080/RnsSystem/rest/places/SP1-S1</self>
+        <roadSegment name="S1" roadName="SP1" capacity="35" id="SP1-S1">
+            <nextPlace>SP1-S2</nextPlace>
+        </roadSegment>
+        <vehicles>http://localhost:8080/RnsSystem/rest/places/SP1-S1/vehicles</vehicles>
+    </webplace>
+    <webplace>
+        <self>http://localhost:8080/RnsSystem/rest/places/SP1-S4</self>
+        <roadSegment name="S4" roadName="SP1" capacity="14" id="SP1-S4">
+            <nextPlace>SP1-S5</nextPlace>
+        </roadSegment>
+        <vehicles>http://localhost:8080/RnsSystem/rest/places/SP1-S4/vehicles</vehicles>
+    </webplace>
+</places>
+		</textarea>
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+  "totalPages": 0,
+  "page": 0,
+  "next": "http://localhost:8080/RnsSystem/rest/places?page=1",
+  "webplace": [
+    {
+      "self": "http://localhost:8080/RnsSystem/rest/places/SP0-S1",
+      "roadSegment": {
+        "id": "SP0-S1",
+        "capacity": 18,
+        "name": "S1",
+        "roadName": "SP0",
+        "nextPlace": [
+          "SP0-S2"
+        ]
+      },
+      "vehicles": "http://localhost:8080/RnsSystem/rest/places/SP0-S1/vehicles"
+    },
+    {
+      "self": "http://localhost:8080/RnsSystem/rest/places/PA000",
+      "parkingArea": {
+        "id": "PA000",
+        "capacity": 49,
+        "nextPlace": [
+          "A0-S3"
+        ],
+        "service": [
+          "Restaurant",
+          "Toilet",
+          "Bar"
+        ]
+      },
+      "vehicles": "http://localhost:8080/RnsSystem/rest/places/PA000/vehicles"
+    },
+    {
+      "self": "http://localhost:8080/RnsSystem/rest/places/Gate2",
+      "gate": {
+        "id": "Gate2",
+        "capacity": 2,
+        "type": "INOUT",
+        "nextPlace": [
+          "SP0-S0"
+        ]
+      },
+      "vehicles": "http://localhost:8080/RnsSystem/rest/places/Gate2/vehicles"
+    }
+  ]
+}
+		</textarea>			
+	</li>
+	<li><p id="idwebplace">webplace</p>
+		<textarea rows="10" cols="120">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webplace>
+    <self>http://localhost:8080/RnsSystem/rest/places/PA000</self>
+    <parkingArea capacity="49" id="PA000">
+        <nextPlace>A0-S5</nextPlace>
+        <service>Toilet</service>
+    </parkingArea>
+    <vehicles>http://localhost:8080/RnsSystem/rest/places/PA000/vehicles</vehicles>
+</webplace>
+		</textarea>
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+  "self": "http://localhost:8080/RnsSystem/rest/places/PA000",
+  "parkingArea": {
+    "id": "PA000",
+    "capacity": 49,
+    "nextPlace": [
+      "A0-S3"
+    ],
+    "service": [
+      "Restaurant",
+      "Toilet",
+      "Bar"
+    ]
+  },
+  "vehicles": "http://localhost:8080/RnsSystem/rest/places/PA000/vehicles"
+}
+		</textarea>			
+	</li>
+	<li><p id="idvehicles">vehicles</p>
+		<textarea rows="10" cols="120">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vehicles>
+    <totalPages>10</totalPages>
+    <page>0</page>
+    <next>http://localhost:8080/RnsSystem/rest/vehicles?page=1</next>
+    <webvehicle>
+        <self>http://localhost:8080/RnsSystem/rest/vehicles/CAR1</self>
+        <vehicle type="CAR" entryTime="2018-12-23T15:56:15.759+01:00" state="IN_TRANSIT" origin="Gate0" destination="Gate1" position="Gate0" id="VK144WL"/>
+        <vehiclePath>
+            <place>Gate0</place>
+            <place>A0-S0</place>
+            <place>A0-S1</place>
+            <place>A0-S2</place>
+            <place>A0-S3</place>
+            <place>A0-S4</place>
+            <place>A0-S5</place>
+            <place>A0-S6</place>
+            <place>A0-S7</place>
+            <place>Gate1</place>
+        </vehiclePath>
+    </webvehicle>
+</vehicles>
+		</textarea>	
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+  "totalPages": 10,
+  "page": 0,
+  "next": "http://localhost:8080/RnsSystem/rest/vehicles?page=1",
+  "webvehicle": [
+    {
+      "self": "http://localhost:8080/RnsSystem/rest/vehicles/VK144WL",
+      "vehicle": {
+        "id": "VK144WL",
+        "type": "CAR",
+        "entryTime": "2018-12-24T14:50:48.503+01:00",
+        "state": "IN_TRANSIT",
+        "origin": "Gate0",
+        "destination": "Gate1",
+        "position": "Gate0"
+      },
+      "vehiclePath": {
+        "place": [
+          "Gate0",
+          "A0-S0",
+          "A0-S1",
+          "A0-S2",
+          "A0-S3",
+          "A0-S4",
+          "A0-S5",
+          "A0-S6",
+          "A0-S7",
+          "Gate1"
+        ]
+      }
+    }
+  ]
+}
+		</textarea>			
+	</li>
+	<li><p id="idconnections">connections</p>
+		<textarea rows="10" cols="120">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<connections>
+  <totalPages>1</totalPages>
+  <page>1</page>
+  <connection>
+    <from>http://localhost:8080/RnsSystem/rest/places/Gate0</from>
+    <to>http://localhost:8080/RnsSystem/rest/places/SP0-S0</to>
+  </connection>
+  <connection>
+    <from>http://localhost:8080/RnsSystem/rest/places/Gate2</from>
+    <to>http://localhost:8080/RnsSystem/rest/places/SP1-S0</to>
+  </connection>
+  <connection>
+    <from>http://localhost:8080/RnsSystem/rest/places/PA000</from>
+    <to>http://localhost:8080/RnsSystem/rest/places/SP0-S5</to>
+  </connection>
+  <connection>
+    <from>http://localhost:8080/RnsSystem/rest/places/SP0-S0</from>
+    <to>http://localhost:8080/RnsSystem/rest/places/SP0-S1</to>
+  </connection>
+</connections>
+		</textarea>
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+  "totalPages": 1,
+  "page": 1,
+  "connection": [
+    {
+      "from": "http://localhost:8080/RnsSystem/rest/places/Gate0",
+      "to": "http://localhost:8080/RnsSystem/rest/places/SP0-S0"
+    },
+    {
+      "from": "http://localhost:8080/RnsSystem/rest/places/Gate2",
+      "to": "http://localhost:8080/RnsSystem/rest/places/SP1-S0"
+    },
+    {
+      "from": "http://localhost:8080/RnsSystem/rest/places/PA000",
+      "to": "http://localhost:8080/RnsSystem/rest/places/SP0-S5"
+    },
+    {
+      "from": "http://localhost:8080/RnsSystem/rest/places/SP0-S0",
+      "to": "http://localhost:8080/RnsSystem/rest/places/SP0-S1"
+    }
+  ]
+}
+		</textarea>			
+	</li>	
+	<li><p id="idvehicletrack">vehicleTrack</p>
+		<textarea rows="10" cols="120">
+<vehicleTrack id="VK144WL" type="CAR" origin="Gate0" destination="Gate1"/>
+		</textarea>	
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+     "id": "VK144WL",
+     "type": "CAR",
+     "origin": "Gate0",
+     "destination": "Gate1"
+}
+		</textarea>			
+	</li>
+	<li><p id="idvehiclepath">vehiclePath</p>
+		<textarea rows="10" cols="120">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vehiclePath>
+    <place>Gate0</place>
+    <place>A0-S0</place>
+    <place>A0-S1</place>
+    <place>A0-S2</place>
+    <place>A0-S3</place>
+    <place>A0-S4</place>
+    <place>A0-S5</place>
+    <place>A0-S6</place>
+    <place>A0-S7</place>
+    <place>Gate1</place>
+</vehiclePath>
+		</textarea>	
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+  "place": [
+    "Gate0",
+    "A0-S0",
+    "A0-S1",
+    "A0-S2",
+    "A0-S3",
+    "A0-S4",
+    "A0-S5",
+    "A0-S6",
+    "A0-S7",
+    "Gate1"
+  ]
+}
+		</textarea>			
+	</li>
+	<li><p id="idwebvehicle">webvehicle</p>
+		<textarea rows="10" cols="120">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<webvehicle>
+    <self>http://localhost:8080/RnsSystem/rest/vehicles/VK144WL</self>
+    <vehicle type="CAR" entryTime="2018-12-23T16:05:37.605+01:00" state="IN_TRANSIT" origin="Gate0" destination="Gate1" position="Gate0" id="VK144WL"/>
+    <vehiclePath>
+        <place>Gate0</place>
+        <place>A0-S0</place>
+        <place>A0-S1</place>
+        <place>A0-S2</place>
+        <place>A0-S3</place>
+        <place>A0-S4</place>
+        <place>A0-S5</place>
+        <place>A0-S6</place>
+        <place>A0-S7</place>
+        <place>Gate1</place>
+    </vehiclePath>
+</webvehicle>
+		</textarea>	
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+  "self": "http://localhost:8080/RnsSystem/rest/vehicles/VK144WL",
+  "vehicle": {
+    "id": "VK144WL",
+    "type": "CAR",
+    "entryTime": "2018-12-24T14:54:47.390+01:00",
+    "state": "IN_TRANSIT",
+    "origin": "Gate0",
+    "destination": "Gate1",
+    "position": "Gate0"
+  },
+  "vehiclePath": {
+    "place": [
+      "Gate0",
+      "A0-S0",
+      "A0-S1",
+      "A0-S2",
+      "A0-S3",
+      "A0-S4",
+      "A0-S5",
+      "A0-S6",
+      "A0-S7",
+      "Gate1"
+    ]
+  }
+}
+		</textarea>			
+	</li>
+	<li><p id="idvehicleposition">vehiclePosition</p>
+		<textarea rows="10" cols="120">
+<vehiclePosition place="Gate1"/>
+		</textarea>	
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+  "place": "Gate1"
+}
+		</textarea>			
+	</li>
+	<li><p id="idvehstate">vehState</p>
+		<textarea rows="10" cols="120">
+<vehState state="PARKED"/>
+		</textarea>	
+<br/>
+<br/>
+		<textarea rows="10" cols="120">
+{
+  "state": "PARKED"
+}
+		</textarea>			
+	</li>
+</ul>
+
+</body>
+</html>
+
+

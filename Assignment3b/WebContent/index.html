@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+li, p {
+  line-height: 2.5;
+}
+</style>
+<script type="text/javascript">
+
+function buildURLJSON(item) {
+	var json_url = window.location+"_swagger-ui/index.html?url="+window.location+"rest/swagger.json";
+    item.href=json_url;
+    return true;
+}
+</script>
+</head>
+<body>
+
+<h2>DP2-RNS REST API</h2>
+
+<ul>
+	<li><a href="doc/user/index.html">User Documentation</a></li>
+	<li><a href="doc/design/index.html">Design Documentation</a></li>
+	<li><a href="doc/impl/index.html">Implementation Documentation</a></li>
+	<li><a href="rest">The main resource of the RNS System</a></li>
+	<li><a onclick="return buildURLJSON(this)" href="_swagger-ui">swagger ui</a></li>
+	<li><a href="rest/swagger.json">swagger json for rns system</a></li>
+</ul>
+
+</body>
+</html>
+
+

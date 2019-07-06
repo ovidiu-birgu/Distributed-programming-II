@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="dp2-student" name="it.polito.dp2.RNS.lab1.tests.RnsTests" skipped="0" tests="5" time="0.243" timestamp="2019-01-17T20:08:58">
+  <properties>
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="lib.dir" value="/home/dp2/workspace/Assignment1b/lib" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="eclipse.pdebuild.templates" value="/home/dp2/Software/eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/templates//" />
+    <property name="sun.management.compiler" value="HotSpot Tiered Compilers" />
+    <property name="os.name" value="Linux" />
+    <property name="generate-bindings.notRequired" value="true" />
+    <property name="sun.boot.class.path" value="/usr/lib/jvm/jdk1.8.0_141/jre/lib/resources.jar:/usr/lib/jvm/jdk1.8.0_141/jre/lib/rt.jar:/usr/lib/jvm/jdk1.8.0_141/jre/lib/sunrsasign.jar:/usr/lib/jvm/jdk1.8.0_141/jre/lib/jsse.jar:/usr/lib/jvm/jdk1.8.0_141/jre/lib/jce.jar:/usr/lib/jvm/jdk1.8.0_141/jre/lib/charsets.jar:/usr/lib/jvm/jdk1.8.0_141/jre/lib/jfr.jar:/usr/lib/jvm/jdk1.8.0_141/jre/classes" />
+    <property name="TODAY" value="January 17 2019" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="ant.home" value="/home/dp2/Software/eclipse/plugins/org.apache.ant_1.9.6.v201510161327" />
+    <property name="java.runtime.version" value="1.8.0_141-b15" />
+    <property name="lib.jar" value="lab1.jar" />
+    <property name="gen.dir" value="/home/dp2/workspace/Assignment1b/gen" />
+    <property name="user.name" value="dp2" />
+    <property name="output" value="/tmp/out1.xml" />
+    <property name="debug" value="true" />
+    <property name="build.dir" value="/home/dp2/workspace/Assignment1b/build" />
+    <property name="user.language" value="en" />
+    <property name="validation_result" value="0" />
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk1.8.0_141/jre/lib/i386" />
+    <property name="ant.project.default-target" value="build" />
+    <property name="ant.project.name" value="RNS-1" />
+    <property name="DSTAMP" value="20190117" />
+    <property name="java.version" value="1.8.0_141" />
+    <property name="user.timezone" value="" />
+    <property name="sun.arch.data.model" value="32" />
+    <property name="java.endorsed.dirs" value="/usr/lib/jvm/jdk1.8.0_141/jre/lib/endorsed" />
+    <property name="sun.cpu.isalist" value="" />
+    <property name="sun.jnu.encoding" value="UTF-8" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="file.separator" value="/" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="exit.code" value="126" />
+    <property name="java.class.version" value="52.0" />
+    <property name="it.polito.dp2.RNS.Random.seed" value="1210857" />
+    <property name="user.country" value="US" />
+    <property name="java.home" value="/usr/lib/jvm/jdk1.8.0_141/jre" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="ant.file.type.RNS-1" value="file" />
+    <property name="ant.file" value="/home/dp2/workspace/Assignment1b/build.xml" />
+    <property name="os.version" value="4.15.0-34-generic" />
+    <property name="temp.dir" value="/home/dp2/workspace/Assignment1b/temp1266812209" />
+    <property name="ant.file.RNS-1" value="/home/dp2/workspace/Assignment1b/build.xml" />
+    <property name="path.separator" value=":" />
+    <property name="RnsInfo.RnsReaderFactory" value="it.polito.dp2.RNS.Random.RnsReaderFactoryImpl" />
+    <property name="java.vm.version" value="25.141-b15" />
+    <property name="ant.library.dir" value="/home/dp2/Software/eclipse/plugins/org.apache.ant_1.9.6.v201510161327/lib" />
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
+    <property name="testcase" value="3" />
+    <property name="eclipse.pdebuild.scripts" value="/home/dp2/Software/eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/scripts//" />
+    <property name="user.home" value="/home/dp2" />
+    <property name="target" value="1.8" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="java.library.path" value="/usr/lib/jvm/jdk1.8.0_141/jre/lib/i386/server:/usr/lib/jvm/jdk1.8.0_141/jre/lib/i386:/usr/lib/jvm/jdk1.8.0_141/jre/../lib/i386:/usr/lib/jvm/jdk1.8.0_141/jre/lib/i386/client:/usr/lib/jvm/jdk1.8.0_141/jre/lib/i386::/usr/java/packages/lib/i386:/lib:/usr/lib" />
+    <property name="java.vendor.url" value="http://java.oracle.com/" />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner it.polito.dp2.RNS.lab1.tests.RnsTests skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/dp2/workspace/Assignment1b/testout.xml formatter=org.apache.tools.ant.taskdefs.optional.junit.PlainJUnitResultFormatter crashfile=/home/dp2/workspace/Assignment1b/junitvmwatcher7058411358072087740.properties propsfile=/home/dp2/workspace/Assignment1b/junit3682547188164656250.properties" />
+    <property name="java.class.path" value="/home/dp2/workspace/Assignment1b/lib/RNS.jar:/home/dp2/workspace/Assignment1b/lib/RNSRandom.jar:/home/dp2/workspace/Assignment1b/build:/home/dp2/workspace/Assignment1b/lib/lab1.jar:/home/dp2/workspace/Assignment1b/lib/junit-4.12.jar:/home/dp2/workspace/Assignment1b/lib/hamcrest-core-1.3.jar:/home/dp2/Software/eclipse/plugins/org.apache.ant_1.9.6.v201510161327/lib/ant-launcher.jar:/home/dp2/Software/eclipse/plugins/org.apache.ant_1.9.6.v201510161327/lib/ant.jar:/home/dp2/Software/eclipse/plugins/org.apache.ant_1.9.6.v201510161327/lib/ant-junit.jar:/home/dp2/Software/eclipse/plugins/org.apache.ant_1.9.6.v201510161327/lib/ant-junit4.jar" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.9.6 compiled on June 29 2015" />
+    <property name="TSTAMP" value="2108" />
+    <property name="test.class" value="it.polito.dp2.RNS.lab1.tests.RnsTests" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="java.vm.specification.version" value="1.8" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.os.patch.level" value="unknown" />
+    <property name="debuglevel" value="source,lines,vars" />
+    <property name="eclipse.pdebuild.home" value="/home/dp2/Software/eclipse/plugins/org.eclipse.pde.build_3.9.200.v20160204-0642/.//" />
+    <property name="java.io.tmpdir" value="/tmp" />
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+    <property name="temp.xmlfile" value="/home/dp2/workspace/Assignment1b/temp1266812209/out557518669.xml" />
+    <property name="os.arch" value="i386" />
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
+    <property name="it.polito.dp2.RNS.Random.testcase" value="3" />
+    <property name="java.ext.dirs" value="/usr/lib/jvm/jdk1.8.0_141/jre/lib/ext:/usr/java/packages/lib/ext" />
+    <property name="user.dir" value="/home/dp2/workspace/Assignment1b/temp1266812209" />
+    <property name="line.separator" value="&#xa;" />
+    <property name="java.vm.name" value="Java HotSpot(TM) Server VM" />
+    <property name="basedir" value="/home/dp2/workspace/Assignment1b" />
+    <property name="ant.java.version" value="1.8" />
+    <property name="ant.core.lib" value="/home/dp2/Software/eclipse/plugins/org.apache.ant_1.9.6.v201510161327/lib/ant.jar" />
+    <property name="source" value="1.8" />
+    <property name="schema.dir" value="/home/dp2/workspace/Assignment1b/xsd" />
+    <property name="file.encoding" value="UTF-8" />
+    <property name="seed" value="1210857" />
+    <property name="it.polito.dp2.RNS.sol1.RnsInfo.file" value="/home/dp2/workspace/Assignment1b/temp1266812209/out557518669.xml" />
+    <property name="java.specification.version" value="1.8" />
+    <property name="lab1.location" value="/home/dp2/workspace/Assignment1b" />
+    <property name="src.dir" value="/home/dp2/workspace/Assignment1b/src" />
+    <property name="ant.project.invoked-targets" value="runFuncTest.real" />
+  </properties>
+  <testcase classname="it.polito.dp2.RNS.lab1.tests.RnsTests" name="testGetGates" time="0.001" />
+  <testcase classname="it.polito.dp2.RNS.lab1.tests.RnsTests" name="testGetVehicles" time="0.006" />
+  <testcase classname="it.polito.dp2.RNS.lab1.tests.RnsTests" name="testGetParkingAreas" time="0.0" />
+  <testcase classname="it.polito.dp2.RNS.lab1.tests.RnsTests" name="testGetRoadSegments" time="0.002" />
+  <testcase classname="it.polito.dp2.RNS.lab1.tests.RnsTests" name="testGetPlaces" time="0.003" />
+  <system-out><![CDATA[Random RnsReader: Using seed: 1210857
+Random RnsReader: Test case: 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Comparing place Gate0
+Comparing place Gate1
+Comparing place Gate10
+Comparing place Gate2
+Comparing place Gate3
+Comparing place Gate4
+Comparing place Gate5
+Comparing place Gate6
+Comparing place Gate7
+Comparing place Gate8
+Comparing place Gate9
+Comparing vehicle AB490WF
+Comparing vehicle AB490WF
+Comparing vehicle AJ561XJ
+Comparing vehicle AJ561XJ
+Comparing vehicle BG568LV
+Comparing vehicle BG568LV
+Comparing vehicle BS545DZ
+Comparing vehicle BS545DZ
+Comparing vehicle BV498IQ
+Comparing vehicle BV498IQ
+Comparing vehicle BV507ZF
+Comparing vehicle BV507ZF
+Comparing vehicle CF483QD
+Comparing vehicle CF483QD
+Comparing vehicle CF559HX
+Comparing vehicle CF559HX
+Comparing vehicle CN510HW
+Comparing vehicle CN510HW
+Comparing vehicle CU555TT
+Comparing vehicle CU555TT
+Comparing vehicle DF526DW
+Comparing vehicle DF526DW
+Comparing vehicle DV566JW
+Comparing vehicle DV566JW
+Comparing vehicle EA556QR
+Comparing vehicle EA556QR
+Comparing vehicle EE564HR
+Comparing vehicle EE564HR
+Comparing vehicle EH536IP
+Comparing vehicle EH536IP
+Comparing vehicle EK476MS
+Comparing vehicle EK476MS
+Comparing vehicle EQ515UW
+Comparing vehicle EQ515UW
+Comparing vehicle ER570SM
+Comparing vehicle ER570SM
+Comparing vehicle EV569ZZ
+Comparing vehicle EV569ZZ
+Comparing vehicle EW472RE
+Comparing vehicle EW472RE
+Comparing vehicle EW478RY
+Comparing vehicle EW478RY
+Comparing vehicle FA518YG
+Comparing vehicle FA518YG
+Comparing vehicle FF485RZ
+Comparing vehicle FF485RZ
+Comparing vehicle FH540EN
+Comparing vehicle FH540EN
+Comparing vehicle FY482WN
+Comparing vehicle FY482WN
+Comparing vehicle FY529MX
+Comparing vehicle FY529MX
+Comparing vehicle GC534OX
+Comparing vehicle GC534OX
+Comparing vehicle GE549JT
+Comparing vehicle GE549JT
+Comparing vehicle GM501VS
+Comparing vehicle GM501VS
+Comparing vehicle HF553BZ
+Comparing vehicle HF553BZ
+Comparing vehicle HU543YK
+Comparing vehicle HU543YK
+Comparing vehicle IR537MH
+Comparing vehicle IR537MH
+Comparing vehicle IV560SY
+Comparing vehicle IV560SY
+Comparing vehicle JC558JX
+Comparing vehicle JC558JX
+Comparing vehicle JG524SR
+Comparing vehicle JG524SR
+Comparing vehicle JO504DO
+Comparing vehicle JO504DO
+Comparing vehicle JS493VM
+Comparing vehicle JS493VM
+Comparing vehicle KA530BQ
+Comparing vehicle KA530BQ
+Comparing vehicle KF532UW
+Comparing vehicle KF532UW
+Comparing vehicle KZ552FN
+Comparing vehicle KZ552FN
+Comparing vehicle LN539DP
+Comparing vehicle LN539DP
+Comparing vehicle LO491TN
+Comparing vehicle LO491TN
+Comparing vehicle LW499WL
+Comparing vehicle LW499WL
+Comparing vehicle MA487KH
+Comparing vehicle MA487KH
+Comparing vehicle MG562WA
+Comparing vehicle MG562WA
+Comparing vehicle ML528AU
+Comparing vehicle ML528AU
+Comparing vehicle MQ502TF
+Comparing vehicle MQ502TF
+Comparing vehicle MR497YR
+Comparing vehicle MR497YR
+Comparing vehicle MX544YP
+Comparing vehicle MX544YP
+Comparing vehicle NA479SQ
+Comparing vehicle NA479SQ
+Comparing vehicle NW522UA
+Comparing vehicle NW522UA
+Comparing vehicle NX474NH
+Comparing vehicle NX474NH
+Comparing vehicle NX551RH
+Comparing vehicle NX551RH
+Comparing vehicle NY473XO
+Comparing vehicle NY473XO
+Comparing vehicle OA495LZ
+Comparing vehicle OA495LZ
+Comparing vehicle OL514RM
+Comparing vehicle OL514RM
+Comparing vehicle OT520PV
+Comparing vehicle OT520PV
+Comparing vehicle OW541IM
+Comparing vehicle OW541IM
+Comparing vehicle OY521PH
+Comparing vehicle OY521PH
+Comparing vehicle PF511NV
+Comparing vehicle PF511NV
+Comparing vehicle PF563CE
+Comparing vehicle PF563CE
+Comparing vehicle PI516EJ
+Comparing vehicle PI516EJ
+Comparing vehicle PK480TP
+Comparing vehicle PK480TP
+Comparing vehicle PV484QL
+Comparing vehicle PV484QL
+Comparing vehicle PX503KF
+Comparing vehicle PX503KF
+Comparing vehicle PY488VZ
+Comparing vehicle PY488VZ
+Comparing vehicle QB567HJ
+Comparing vehicle QB567HJ
+Comparing vehicle QE508WL
+Comparing vehicle QE508WL
+Comparing vehicle QK525HF
+Comparing vehicle QK525HF
+Comparing vehicle QQ547FA
+Comparing vehicle QQ547FA
+Comparing vehicle RE496ZW
+Comparing vehicle RE496ZW
+Comparing vehicle RG535JT
+Comparing vehicle RG535JT
+Comparing vehicle RI509VP
+Comparing vehicle RI509VP
+Comparing vehicle RR505YG
+Comparing vehicle RR505YG
+Comparing vehicle RR571RT
+Comparing vehicle RR571RT
+Comparing vehicle RT548WO
+Comparing vehicle RT548WO
+Comparing vehicle RX481BJ
+Comparing vehicle RX481BJ
+Comparing vehicle SC506KY
+Comparing vehicle SC506KY
+Comparing vehicle SF557OR
+Comparing vehicle SF557OR
+Comparing vehicle TQ492VU
+Comparing vehicle TQ492VU
+Comparing vehicle TY486XF
+Comparing vehicle TY486XF
+Comparing vehicle UJ512MY
+Comparing vehicle UJ512MY
+Comparing vehicle UL527UV
+Comparing vehicle UL527UV
+Comparing vehicle UP542EA
+Comparing vehicle UP542EA
+Comparing vehicle VP475SG
+Comparing vehicle VP475SG
+Comparing vehicle VQ546UR
+Comparing vehicle VQ546UR
+Comparing vehicle VW523PY
+Comparing vehicle VW523PY
+Comparing vehicle WA513OK
+Comparing vehicle WA513OK
+Comparing vehicle WA550BU
+Comparing vehicle WA550BU
+Comparing vehicle WD489TA
+Comparing vehicle WD489TA
+Comparing vehicle WV494WX
+Comparing vehicle WV494WX
+Comparing vehicle XM477PE
+Comparing vehicle XM477PE
+Comparing vehicle YA531XE
+Comparing vehicle YA531XE
+Comparing vehicle YE471BV
+Comparing vehicle YE471BV
+Comparing vehicle YI500JG
+Comparing vehicle YI500JG
+Comparing vehicle YZ519XX
+Comparing vehicle YZ519XX
+Comparing vehicle ZL538YQ
+Comparing vehicle ZL538YQ
+Comparing vehicle ZR533DL
+Comparing vehicle ZR533DL
+Comparing vehicle ZS554ZR
+Comparing vehicle ZS554ZR
+Comparing vehicle ZT517TH
+Comparing vehicle ZT517TH
+Comparing vehicle ZY565MB
+Comparing vehicle ZY565MB
+Comparing place PA000
+Comparing place PA001
+Comparing place PA002
+Comparing place PA003
+Comparing place PA004
+Comparing place PA005
+Comparing place PA006
+Comparing place PA007
+Comparing place PA008
+Comparing place A0-S0
+Comparing place A0-S1
+Comparing place A0-S2
+Comparing place A0-S3
+Comparing place A0-S4
+Comparing place A0-S5
+Comparing place A0-S6
+Comparing place A0-S7
+Comparing place A0-S8
+Comparing place A0-S9
+Comparing place SP0-S0
+Comparing place SP0-S1
+Comparing place SP0-S2
+Comparing place SP0-S3
+Comparing place SP0-S4
+Comparing place SP0-S5
+Comparing place SP0-S6
+Comparing place SP1-S0
+Comparing place SP1-S1
+Comparing place SP1-S2
+Comparing place SP1-S3
+Comparing place SP1-S4
+Comparing place SP1-S5
+Comparing place SP1-S6
+Comparing place SP1-S7
+Comparing place SP1-S8
+Comparing place SP1-S9
+Comparing place SP2-S0
+Comparing place SP2-S1
+Comparing place SP2-S2
+Comparing place SP3-S0
+Comparing place SP3-S1
+Comparing place SP3-S2
+Comparing place SP3-S3
+Comparing place SP3-S4
+Comparing place SP4-S0
+Comparing place SP4-S1
+Comparing place SP4-S2
+Comparing place SP4-S3
+Comparing place SP4-S4
+Comparing place SP4-S5
+Comparing place SP4-S6
+Comparing place SS0-S0
+Comparing place SS0-S1
+Comparing place SS0-S2
+Comparing place SS0-S3
+Comparing place SS0-S4
+Comparing place SS1-S0
+Comparing place SS1-S1
+Comparing place SS1-S2
+Comparing place SS1-S3
+Comparing place SS1-S4
+Comparing place SS1-S5
+Comparing place SS1-S6
+Comparing place SS1-S7
+Comparing place A0-S0
+Comparing place A0-S0
+Comparing place A0-S1
+Comparing place A0-S1
+Comparing place A0-S2
+Comparing place A0-S2
+Comparing place A0-S3
+Comparing place A0-S3
+Comparing place A0-S4
+Comparing place A0-S4
+Comparing place A0-S5
+Comparing place A0-S5
+Comparing place A0-S6
+Comparing place A0-S6
+Comparing place A0-S7
+Comparing place A0-S7
+Comparing place A0-S8
+Comparing place A0-S8
+Comparing place A0-S9
+Comparing place A0-S9
+Comparing place Gate0
+Comparing place Gate0
+Comparing place Gate1
+Comparing place Gate1
+Comparing place Gate10
+Comparing place Gate10
+Comparing place Gate2
+Comparing place Gate2
+Comparing place Gate3
+Comparing place Gate3
+Comparing place Gate4
+Comparing place Gate4
+Comparing place Gate5
+Comparing place Gate5
+Comparing place Gate6
+Comparing place Gate6
+Comparing place Gate7
+Comparing place Gate7
+Comparing place Gate8
+Comparing place Gate8
+Comparing place Gate9
+Comparing place Gate9
+Comparing place PA000
+Comparing place PA000
+Comparing place PA001
+Comparing place PA001
+Comparing place PA002
+Comparing place PA002
+Comparing place PA003
+Comparing place PA003
+Comparing place PA004
+Comparing place PA004
+Comparing place PA005
+Comparing place PA005
+Comparing place PA006
+Comparing place PA006
+Comparing place PA007
+Comparing place PA007
+Comparing place PA008
+Comparing place PA008
+Comparing place SP0-S0
+Comparing place SP0-S0
+Comparing place SP0-S1
+Comparing place SP0-S1
+Comparing place SP0-S2
+Comparing place SP0-S2
+Comparing place SP0-S3
+Comparing place SP0-S3
+Comparing place SP0-S4
+Comparing place SP0-S4
+Comparing place SP0-S5
+Comparing place SP0-S5
+Comparing place SP0-S6
+Comparing place SP0-S6
+Comparing place SP1-S0
+Comparing place SP1-S0
+Comparing place SP1-S1
+Comparing place SP1-S1
+Comparing place SP1-S2
+Comparing place SP1-S2
+Comparing place SP1-S3
+Comparing place SP1-S3
+Comparing place SP1-S4
+Comparing place SP1-S4
+Comparing place SP1-S5
+Comparing place SP1-S5
+Comparing place SP1-S6
+Comparing place SP1-S6
+Comparing place SP1-S7
+Comparing place SP1-S7
+Comparing place SP1-S8
+Comparing place SP1-S8
+Comparing place SP1-S9
+Comparing place SP1-S9
+Comparing place SP2-S0
+Comparing place SP2-S0
+Comparing place SP2-S1
+Comparing place SP2-S1
+Comparing place SP2-S2
+Comparing place SP2-S2
+Comparing place SP3-S0
+Comparing place SP3-S0
+Comparing place SP3-S1
+Comparing place SP3-S1
+Comparing place SP3-S2
+Comparing place SP3-S2
+Comparing place SP3-S3
+Comparing place SP3-S3
+Comparing place SP3-S4
+Comparing place SP3-S4
+Comparing place SP4-S0
+Comparing place SP4-S0
+Comparing place SP4-S1
+Comparing place SP4-S1
+Comparing place SP4-S2
+Comparing place SP4-S2
+Comparing place SP4-S3
+Comparing place SP4-S3
+Comparing place SP4-S4
+Comparing place SP4-S4
+Comparing place SP4-S5
+Comparing place SP4-S5
+Comparing place SP4-S6
+Comparing place SP4-S6
+Comparing place SS0-S0
+Comparing place SS0-S0
+Comparing place SS0-S1
+Comparing place SS0-S1
+Comparing place SS0-S2
+Comparing place SS0-S2
+Comparing place SS0-S3
+Comparing place SS0-S3
+Comparing place SS0-S4
+Comparing place SS0-S4
+Comparing place SS1-S0
+Comparing place SS1-S0
+Comparing place SS1-S1
+Comparing place SS1-S1
+Comparing place SS1-S2
+Comparing place SS1-S2
+Comparing place SS1-S3
+Comparing place SS1-S3
+Comparing place SS1-S4
+Comparing place SS1-S4
+Comparing place SS1-S5
+Comparing place SS1-S5
+Comparing place SS1-S6
+Comparing place SS1-S6
+Comparing place SS1-S7
+Comparing place SS1-S7
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

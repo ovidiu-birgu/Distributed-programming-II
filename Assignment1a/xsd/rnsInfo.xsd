@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!-- Author: Ovidiu Birgu s231567 -->	
+
+	<!-- root element -->
+	<xsd:element name="rns">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="gate" type="Gate" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="roadSegment" type="RoadSegment" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="parkingArea" type="ParkingArea" minOccurs="0" maxOccurs="unbounded">
+					<!-- Unique services for each parking area -->
+					<xsd:unique name="uniqueServicesParkingArea">
+						<xsd:selector xpath="service"/>  
+						<xsd:field xpath="."/>
+					</xsd:unique>				
+				</xsd:element>
+				<xsd:element name="vehicle" type="Vehicle" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="road" type="Road" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="service" type="Service" minOccurs="0" maxOccurs="unbounded"/>									
+			</xsd:sequence>
+		</xsd:complexType>
+		
+		<!-- Declaration of keys -->
+		<!-- Key for places: shared between roadSegment, parkingArea, gate -->
+		<!-- instead of 'roadSegment|parkingArea|gate' I could use '*' -->
+		<xsd:key name="keyPlacesId">
+			<xsd:selector xpath="roadSegment | parkingArea | gate"/>  
+			<xsd:field xpath="@id"/>  
+		</xsd:key>
+		<xsd:keyref name="keyrefPlacesId" refer="keyPlacesId">
+			<xsd:selector xpath="roadSegment/nextPlace | parkingArea/nextPlace | gate/nextPlace"/>  
+			<xsd:field xpath="."/>
+		</xsd:keyref> 		
+		<xsd:keyref name="keyref2PlacesId" refer="keyPlacesId">
+			<xsd:selector xpath="vehicle"/>  
+			<xsd:field xpath="@origin"/>
+		</xsd:keyref> 
+		<xsd:keyref name="keyref3PlacesId" refer="keyPlacesId">
+			<xsd:selector xpath="vehicle"/>  
+			<xsd:field xpath="@destination"/>
+		</xsd:keyref> 
+		<xsd:keyref name="keyref4PlacesId" refer="keyPlacesId">
+			<xsd:selector xpath="vehicle"/>  
+			<xsd:field xpath="@position"/>
+		</xsd:keyref>
+
+		<!-- Key for gates -->
+		<xsd:key name="keyGatesId">
+			<xsd:selector xpath="gate"/>  
+			<xsd:field xpath="@id"/>  
+		</xsd:key>
+		<xsd:keyref name="keyrefGatesId" refer="keyGatesId">  
+			<xsd:selector xpath="vehicle"/>  
+			<xsd:field xpath="@origin"/>
+		</xsd:keyref>	
+
+		<!-- Key for roadSegments -->
+		<!-- group all roadSegments by belongsToRoad -->
+		<!-- double key [name, belongsToRoad] -->
+		<xsd:key name="keyRoadSegmentsName">
+			<xsd:selector xpath="roadSegment"/>  
+			<xsd:field xpath="@name"/>
+			<xsd:field xpath="@roadName"/>
+		</xsd:key>
+
+		<!-- Key for vehicles -->
+		<xsd:key name="keyVehiclesId">
+			<xsd:selector xpath="vehicle"/>  
+			<xsd:field xpath="@id" /> 
+		</xsd:key>
+
+		<!-- Key for roads -->
+		<xsd:key name="keyRoadsName">
+			<xsd:selector xpath="road"/>  
+			<xsd:field xpath="@name"/>  
+		</xsd:key>
+		<xsd:keyref name="keyrefRoadsName" refer="keyRoadsName">  
+			<xsd:selector xpath="roadSegment"/>  
+			<xsd:field xpath="@roadName"/>
+		</xsd:keyref>		
+
+		<!-- Key for services -->
+		<xsd:key name="keyServicesName">
+			<xsd:selector xpath="service"/>  
+			<xsd:field xpath="@name"/>
+		</xsd:key>
+		<xsd:keyref name="keyrefServicesName" refer="keyServicesName">  
+			<xsd:selector xpath="parkingArea/service"/>  
+			<xsd:field xpath="."/>
+		</xsd:keyref>					
+		
+	</xsd:element>
+
+	<xsd:complexType name="IdentifiedEntity">
+		<xsd:attribute name="id" type="xsd:string" use="required"/> 
+	</xsd:complexType>
+	
+	<xsd:complexType name="Place">
+		<xsd:complexContent>
+			<xsd:extension base="IdentifiedEntity">			
+				<xsd:sequence>	
+					<xsd:element name="nextPlace" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>			
+				</xsd:sequence>
+				<xsd:attribute name="capacity" type="xsd:positiveInteger" use="required"/>
+			</xsd:extension>
+		</xsd:complexContent>	
+	</xsd:complexType>
+			
+	<xsd:complexType name="IdentifiedEntityRestricted">
+		<xsd:complexContent>
+			<xsd:restriction base="IdentifiedEntity">
+				<xsd:attribute name="id" type="StringPlateID" use="required"/>
+			</xsd:restriction>
+		</xsd:complexContent>
+	</xsd:complexType>			
+			
+	<xsd:complexType name="Vehicle">
+		<xsd:complexContent>
+			<xsd:extension base="IdentifiedEntityRestricted">
+				<xsd:attribute name="type" type="VehicleType" use="required"/>
+				<xsd:attribute name="entryTime" type="xsd:dateTime" use="required"/>
+				<xsd:attribute name="state" type="VehicleState" use="required"/>
+				<xsd:attribute name="origin" type="xsd:string" use="required"/>
+				<xsd:attribute name="destination" type="xsd:string" use="required"/>
+				<xsd:attribute name="position" type="xsd:string" use="required"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="RoadSegment">
+		<xsd:complexContent>
+			<xsd:extension base="Place">
+				<xsd:attribute name="name" type="xsd:string" use="required"/>
+				<xsd:attribute name="roadName" type="xsd:string" use="required"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="ParkingArea">
+		<xsd:complexContent>
+			<xsd:extension base="Place">		
+				<xsd:sequence>
+					<xsd:element name="service" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>			
+				</xsd:sequence>	
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Gate">
+		<xsd:complexContent>
+			<xsd:extension base="Place">
+				<xsd:attribute name="type" type="GateType" use="required"/>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+		
+	<xsd:complexType name="Road">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>	
+
+	<xsd:complexType name="Service">
+		<xsd:attribute name="name" type="xsd:string" use="required"/>	
+	</xsd:complexType>
+		
+	<xsd:simpleType name="VehicleType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CAR"/>
+			<xsd:enumeration value="TRUCK"/>
+			<xsd:enumeration value="SHUTTLE"/>
+			<xsd:enumeration value="CARAVAN"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="VehicleState">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="PARKED"/>
+			<xsd:enumeration value="IN_TRANSIT"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="GateType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="IN"/>
+			<xsd:enumeration value="OUT"/>
+			<xsd:enumeration value="INOUT"/>		
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="StringPlateID">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="([A-Z][A-Z0-9]*)"></xsd:pattern>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

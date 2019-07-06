@@ -1,0 +1,12 @@
+RnsInfo
+RnsInfoSerializer
+RnsInfoSerializer.test
+build
+buildRnsInfo
+clean
+generate-bindings
+init
+make-zip
+runFuncTest
+runFuncTest.real
+setseed

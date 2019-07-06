@@ -1,0 +1,47 @@
+Author: Ovidiu Birgu s231567
+
+The system is formed of a main root element 'rnsReader' containing a list of 'places' and 'vehicles'
+
+Implementation of the various arrows:
+ - <source> -> <destination>
+	<description>
+ 
+ - 'identifiedEntity -> place'
+	'place' extends the 'identifiedEntity' element, which contains only an attribute 'id' string;
+ - 'identifiedEntity -> vehicle'
+ 	'vehicle' extends the 'identifiedEntityRestricted' element (which is restricted from 'identifiedEntity' element, for alphanumeric 'id' string), which contains only an attribute 'id';
+ - 'place -> roadSegment, parkingArea, gate'
+ 	'roadSegment', 'parkingArea' and 'gate' extend the 'place' element;
+ - 'isConnectedTo'
+ 	by using a list of 'nextPlace' elements inside 'place' that references to the 'places key'
+ 	note: I can have multiple connections for two places (connection1: Parking1->RoadSegment1; connection2: Parking1->RoadSegment1)
+ - 'vehicle -> place'
+ 	by using an attribute inside 'vehicle', that references to the 'places key'
+ - 'comesFrom'
+ 	by using an attribute inside 'vehicle', that references to the 'places key'
+ - 'isDirectedTo'
+ 	by using an attribute inside 'vehicle', that references to the 'places key'
+ - 'roadSegment -> road'
+ 	by using an attribute inside 'roadSegment', that references to the 'roads key'
+ - 'parkingArea -> service'
+ 	by using a list of 'services' elements inside 'parkingArea' that references to the 'services key'
+ 
+Keys used in order to respect the requirements :
+ - <xsd element> : <key/keyref name>
+	<description>
+ 
+ - 'gate|parkingArea|roadSegment' : 'keyPlacesId'
+	imposes uniqueness between 'roadSegment', 'parkingArea' and 'gate'
+ 	note: in the selector for the key, instead of 'roadSegment|parkingArea|gate' I could have used '*'
+ - 'gate' : 'keyrefGatesId'
+	used for imposing the origin place as a gate for the vehicles
+ - 'roadSegment': 'keyRoadSegmentsName'
+ 	note: I had to use a double key composed of attributes [name, roadName] in order to impose unique 'roadSegment' inside 'road';
+ - 'vehicle' : 'keyVehiclesId'
+	imposes uniqueness between 'vehicle' elements
+ - 'road': 'keyRoadsName'
+	imposes uniqueness between 'road' elements
+ - 'service': 'keyServicesName'
+	imposes uniqueness between 'service' elements
+ - 'service': 'uniqueServicesParkingArea'
+	imposes unique services for each parking area

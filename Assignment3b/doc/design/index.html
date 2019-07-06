@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<h2>DP2-RNS REST API Design Documentation</h2>
+<br>
+<br>
+<p><b>Design choices</b></p>
+<ul>
+<li>limited number of interactions</li>
+<li>small size for messages, thanks to query parameters, paging and references</li>
+<li>data models include hyperlink(self, next) references instead of full representations</li>
+</ul>
+<br/>
+<p>The main resource for accessing the DP2-REST API is "webrns", which can be accessed at from the root of the service, and it provides links for all the resources available in the system: places(with their connections), connections and vehicles. The places can be filtered by type(only gates or road segments or parking areas) using the query parameter "type".</p>
+<p>Following the url of places resource loads the "places" page, which is a collection of "webplace". This page also includes information about the current page, the total number of pages and the link for the next page. By default,  for performance reasons, this page only shows a limited number(fixed in the xml schema) of "webplace" elements.</p>
+<p>From this page, if a "webplace" self link is followed, the page of that "webplace" loads. In this page is available the place type(with all of the properties: id, capacity, next places, ecc.), self link and link for the vehicles that are in this place.  </p>
+<p>Following the link for vehicles in the place shows the page for the vehicles, which is a list of "webvehicle". The page also includes the pagination elements like the places page.</p>
+<p>Like previously on places page, the individual page for one vehicle can be loaded. This page shows the details of the vehicle(id, type, entry time, state, origin, destination, position) and the vehicle path assigned to this vehicle.</p>
+<p>In the main resource, the connections link, if followed, loads the page with all the connections between places.</p>
+<p>From the main root resource, the vehicles link can be followed, which lists all the vehicles that are tracked. This page also includes pagination and self/next links</p>
+<p>Administrator can delete tracked vehicles at any time, by requesting DELETE on the vehicle id page</p>
+<p>The vehicle client can also ask to be deleted from the system, but only if it is in an OUT/INOUT gate.</p>
+<p>The pagination for the next places connections of a place was not implemented because a place is connected to a limited number of places.</p>
+<p>The system rejects requests for new vehicles if the entrance gate capacity is exceeded. Also, the requests to move a vehicle to another position can be declined if that place capacity is exceeded.</p>
+
+</body>
+</html>
